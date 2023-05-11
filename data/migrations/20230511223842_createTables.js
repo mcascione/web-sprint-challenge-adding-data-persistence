@@ -48,6 +48,14 @@ exports.up = function (knex) {
         .inTable("resources")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
+    tbl
+        .integer("task_id")
+        .unsigned()
+        .notNullable()
+        .references("task_id")
+        .inTable("tasks")
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
     });
 };
 
