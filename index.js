@@ -1,11 +1,13 @@
-const express = require('express');
+const server = require('./api/server');
 
-require('dotenv').config();
-
-const server = express();
+require("dotenv").config();
 
 const port = process.env.PORT || 9000;
 
+server.use("*", (req, res) => {
+    res.status(404).send(`404 Error: Page does not exist`);
+  });
+
 server.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-})
+  console.log(`Server listening on port ${port}`);
+});
