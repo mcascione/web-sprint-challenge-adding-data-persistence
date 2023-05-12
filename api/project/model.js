@@ -1,15 +1,21 @@
 const db = require("../../data/dbConfig");
 
-function Find() {
+function Find(){
   return db("projects");
 }
 
+function FindByID(id){
+  return db('projects').where('project_id', id).first()
+}
+
 async function Create(project) {
-  await db("projects").insert(project)
-  return project;
+  const project_id = await db("projects").insert(project)
+  const newTask = await FindByID(project_id)
+  return newTask;
 }
 
 module.exports = {
   Find,
   Create,
+  FindByID,
 };

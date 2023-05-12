@@ -1,15 +1,21 @@
-const db = require('../../data/dbConfig');
+const db = require("../../data/dbConfig");
 
-function FindResource(){
-    return db('resources');
+function FindResource() {
+  return db("resources");
 }
 
-async function CreateResource(resource){
-    await db('resources').insert(resource)
-    return resource;
+function FindResourceById(id) {
+  return db("resources").where("resource_id", id).first();
+}
+
+async function CreateResource(resource) {
+  const resourceId = await db("resources").insert(resource);
+  const newResource = await FindResourceById(resourceId);
+  return newResource;
 }
 
 module.exports = {
-    FindResource,
-    CreateResource
+  FindResource,
+  CreateResource,
+  FindResourceById,
 };

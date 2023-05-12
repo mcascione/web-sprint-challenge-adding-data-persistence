@@ -15,6 +15,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.post('/', async (req, res, next) => {
+  try {
+    const newTask = await Task.CreateTask(req.body);
+    const formattedNewTask = {
+      ...newTask,
+      task_completed: Boolean(newTask.task_completed)
+    }
+    res.status(201).json(formattedNewTask);
+  } catch (err) {
+    next(err)
+  }
+})
+
 //eslint-disable-next-line
 router.use((err, req, res, next) => {
   res.status(err.status || 500).json({

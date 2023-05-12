@@ -6,11 +6,18 @@ function FindTasks() {
     .select("t.*", "project_name", "project_description");
 }
 
-/* select t.*, project_name, project_description from tasks as t
-    left join projects as p
-        on t.project_id = p.project_id
-        */
+function FindTaskByID(id) {
+  return db("tasks").where("task_id", id).first();
+}
+
+async function CreateTask(task) {
+  const task_id = await db("tasks").insert(task);
+  const newTask = await FindTaskByID(task_id);
+  return newTask;
+}
 
 module.exports = {
   FindTasks,
+  CreateTask,
+  FindTaskByID,
 };
