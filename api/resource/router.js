@@ -10,6 +10,15 @@ router.get("/", (req, res, next) => {
         .catch(next)
   });
 
+router.post('/', async (req, res, next) => {
+    try {
+        const newResource = await Resource.CreateResource(req.body);
+        res.status(201).json(newResource);
+    } catch (err) {
+        next(err)
+    }
+})
+
   //eslint-disable-next-line
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json({
