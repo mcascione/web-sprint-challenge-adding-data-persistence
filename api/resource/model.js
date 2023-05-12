@@ -1,5 +1,9 @@
 const db = require('../../data/dbConfig');
 
-module.exports = {
+function FindResource(){
+    return db('resources');
+}
 
+module.exports = {
+    FindResource
 };

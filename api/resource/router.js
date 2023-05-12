@@ -1,8 +1,13 @@
 const express = require('express');
+const Resource = require('./model');
 const router = express.Router();
 
-router.get("/", (req, res, next) => {   //eslint-disable-line
-    res.status(200).json({ message: "hello from resources router" });
+router.get("/", (req, res, next) => {   
+    Resource.FindResource()
+        .then( resource => {
+            res.status(200).json(resource)
+        })
+        .catch(next)
   });
 
   //eslint-disable-next-line
